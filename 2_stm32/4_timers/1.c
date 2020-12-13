@@ -1,8 +1,8 @@
 #include "stm32f10x.h"
-//////////****** Örnek 1 Temel Bekleme Yaptirma  **********////////
+//////////****** Ã–rnek 1 Temel Bekleme Yaptirma  **********////////
 // SR yi 0 ladik  while(!(TIM1->SR & 1)); ile 1 olana kadar bekliyoruz
 // tasma oldugunda sr 1 oluyo ve while 0 laniyo
-// dolayisiyla tasma olana kadar while içinde bekliyoruz
+// dolayisiyla tasma olana kadar while iÃ§inde bekliyoruz
 // sonradan tekrar 0 layip while 1 de kalmasini sagliyoruz
 
 int main(){
@@ -20,12 +20,12 @@ int main(){
 	}
 }
 
-///////////********* Örnek 2 Timer interrupt fonksiyonu *******/////////
+///////////********* Ã–rnek 2 Timer interrupt fonksiyonu *******/////////
 
 #include "stm32f10x.h"
 void TIM1_UP_IRQHandler(){
 	if(TIM1->SR&1){
-		TIM1->SR=~1;//Tekrar aktif olmasi için
+		TIM1->SR=~1;//Tekrar aktif olmasi iÃ§in
 		//sonra interrupt ile yapilmak istenenler	
 	}
 }
@@ -37,9 +37,9 @@ int main2(){
 	RCC->APB2ENR|=(1<<11); //timer enable
 	TIM1->ARR=3600;
 	TIM1-> PSC=9999;
-	TIM1->RCR=0;// Ilk tasmada interrupti çagiriyo gecikme için 1++
+	TIM1->RCR=0;// Ilk tasmada interrupti Ã§agiriyo gecikme iÃ§in 1++
 	TIM1->DIER|=1; //	
-	NVIC->ISER[0]|=(1<<25); //kütüphanedeki fonksiyonun sirasi
+	NVIC->ISER[0]|=(1<<25); //kÃ¼tÃ¼phanedeki fonksiyonun sirasi
 	TIM1->CR1|=1; //timer start;
 	while(1){}		
 }
@@ -48,7 +48,7 @@ int main2(){
 #include "stm32f10x.h"
 int main3(){
 	RCC->APB2ENR|=(1<<2)|1; //alternatif fonk enable
-	GPIOA->CRH&=~(1<<2);    //pini pwm için çikis
+	GPIOA->CRH&=~(1<<2);    //pini pwm iÃ§in Ã§ikis
 	GPIOA->CRH|=(1<<3)|3;
 	
 	RCC->APB2ENR|=(1<<11);//timer enable
