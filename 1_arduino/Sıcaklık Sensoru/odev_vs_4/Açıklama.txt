@@ -1,0 +1,11 @@
+1) 0xBE komutu ile bellekten ilk 2 byte'ı okudum. data[0] da Lsb 
+data[1]'de Msb sakladım. 
+
+2)Sıcaklık() fonksiyonunda 16 bitlik a maskesi oluşturdum.
+Bu maske ile 4.ve 10. bit arasındaki kısmı int'e çevirdim. Böylece dereceyi elde ettim(ondalık kısmı almadım). işaret için 11. ile 15. bit arasındaki kısmı inte çevirdim. 
+
+3) sıfır deilse -, diğer durumda + olarak işaretledim. eğer - olursa 127'den çıkartıp negatif dereceyi buldum.
+
+4) Son olarak ekranda gösterdim.
+
+Burak Şencan
