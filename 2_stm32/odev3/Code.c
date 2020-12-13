@@ -2,20 +2,20 @@
 
 /* Algoritmasi*/
 
-/*1 saniyeyi 10'a böldüm. Her 0,1 snde SysTick_Handler interuptini çagiriyourum. */
+/*1 saniyeyi 10'a bÃ¶ldÃ¼m. Her 0,1 snde SysTick_Handler interuptini Ã§agiriyourum. */
 /*10 kere interrupt oldugundan artma(val) degerini  360 arttiriyorum*/
-//360+360+360.....360 =3600'a  1 sn içinde ++360 ile ulasmis oluyoruz
-/*0'dan 3600'a ve tersi için ise yön degiskenini kullaniyorum */
+//360+360+360.....360 =3600'a  1 sn iÃ§inde ++360 ile ulasmis oluyoruz
+/*0'dan 3600'a ve tersi iÃ§in ise yÃ¶n degiskenini kullaniyorum */
 
-/*Dolayisiyla 1 saniye içinde ledi %100 ve 1 sn içinde %0 parlakliga ayarlliyorum*/
+/*Dolayisiyla 1 saniye iÃ§inde ledi %100 ve 1 sn iÃ§inde %0 parlakliga ayarlliyorum*/
 
 /*note daha hassas arttirma/azaltma ayarlanabilir *  ++18,72Mhz/1600 gibi */
 
 
 
 int duty_cycle=0;		//duty cycle 0-3600
-int yonu=1; 				/* if yönü==1 => 0---->3600   
-										   if yönü==0 => 3600---->0  */ 
+int yonu=1; 				/* if yÃ¶nÃ¼==1 => 0---->3600   
+										   if yÃ¶nÃ¼==0 => 3600---->0  */ 
 int val =360;				// interrupt artma degeri
 
 
@@ -48,7 +48,7 @@ int main(){
 	TIM1->BDTR |= (1<<15); //Break and dead-time register. Main output enable
 	TIM1->ARR=3600 ;//auto reload register 2KHz
 	TIM1->PSC=10;//prescaler 
-  TIM1->CCR2=0;//Channel 2 için duty cycl=%0 
+  TIM1->CCR2=0;//Channel 2 iÃ§in duty cycl=%0 
 	TIM1->CR1|=1;	//Counter enable
 	
 	SysTick -> LOAD =72000000 /80;  //0,1sn =100ms
