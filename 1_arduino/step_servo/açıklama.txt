@@ -1,5 +1,8 @@
-    y ekseninde step motor x ekseninde servo ile hareket sağladım.
-step ve servo motoru 5 derece ile 36 kere çalıstırdım her bir adımda mesafe sensörü ile ölçüm yaptım. sonuçta 36x36 = 1296 veri elde ettim. bu veriyi COM3 ile python'a gönderdim bunun için serial.py kütüphanesini kullandım. 
-    python'da bu açı ve mesafe bilgisini 3d kordinat sistemine uyarlamaya çalıstım bunun için analitik geometri kullandım.
-sonuçta elimde ilgili açı değeri için x,y,z kordinati elde ettim.
-    Şuanda projemde verinin görselleştirilmesi kısmındayım birkaç problemle ugrasıyorum. henüz bitmedi. 
+    y ekseninde step motor x ekseninde servo ile hareket saÄŸladÄ±m.
+step ve servo motoru 5 derece ile 36 kere Ã§alÄ±stÄ±rdÄ±m her bir adÄ±mda mesafe sensÃ¶rÃ¼ ile Ã¶lÃ§Ã¼m yaptÄ±m. 
+sonuÃ§ta 36x36 = 1296 veri elde ettim. bu veriyi COM3 ile python'a gÃ¶nderdim bunun iÃ§in serial.py kÃ¼tÃ¼phanesini kullandÄ±m. 
+
+    python'da bu aÃ§Ä± ve mesafe bilgisini 3d kordinat sistemine uyarlamaya Ã§alÄ±stÄ±m bunun iÃ§in analitik geometri kullandÄ±m.
+sonuÃ§ta elimde ilgili aÃ§Ä± deÄŸeri iÃ§in x,y,z kordinati elde ettim.
+
+    Åuanda projemde verinin gÃ¶rselleÅŸtirilmesi kÄ±smÄ±ndayÄ±m birkaÃ§ problemle ugrasÄ±yorum. henÃ¼z bitmedi. 
