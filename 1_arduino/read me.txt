@@ -1,0 +1,1 @@
+Bu projede arduino 3d alan modelleme yaptým. Step, Servo, Ultrasonic mesafe sensörü kullandm. Step ile yatayda, servo ile dikeyde hareket saðladým. Mesafe sensöründen gelen bilgiyi COM3 üzerinden pythonda okudum. Her bir açýya karþýlýk gelen kordinatlarý trigonometrik förmüller ile hesapladým. Plotly kütüphanesi ile tarayýcýmda gösterdim.
