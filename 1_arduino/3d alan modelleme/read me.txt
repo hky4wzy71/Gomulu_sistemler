@@ -1,1 +1,3 @@
-Bu projede arduino 3d alan modelleme yaptım. Step, Servo, Ultrasonic mesafe sensörü kullandm. Step ile yatayda, servo ile dikeyde hareket sağladım. Mesafe sensöründen gelen bilgiyi COM3 üzerinden pythonda okudum. Her bir açıya karşılık gelen kordinatları trigonometrik förmüller ile hesapladım. Plotly kütüphanesi ile tarayıcımda gösterdim.
+Bu projede arduino 3d alan modelleme yaptÄ±m. Step, Servo, Ultrasonic mesafe sensÃ¶rÃ¼ kullandm.
+Step ile yatayda, servo ile dikeyde hareket saÄŸladÄ±m. Mesafe sensÃ¶rÃ¼nden gelen bilgiyi COM3 Ã¼zerinden pythonda okudum.
+Her bir aÃ§Ä±ya karÅŸÄ±lÄ±k gelen kordinatlarÄ± trigonometrik fÃ¶rmÃ¼ller ile hesapladÄ±m. Plotly kÃ¼tÃ¼phanesi ile tarayÄ±cÄ±mda gÃ¶sterdim.
