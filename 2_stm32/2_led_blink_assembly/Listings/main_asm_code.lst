@@ -1,0 +1,188 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             deneme, code
+    2 00000000                 EXPORT           __main
+    3 00000000         __main
+    4 00000000         
+    5 00000000 F241 0000 
+              F2C4 0002        MOV32            R0,#0x40021000 ;APB2ENR birimin
+                                                            in RCC reg'inin bas
+                                                            langiç adresi.
+    6 00000008 6981            LDR              R1, [R0,#0x18] ;RCC_APB2ENR off
+                                                            set adresini R1 deg
+                                                            ine set ettim.
+    7 0000000A F041 0110       ORR              R1,#(1<<4)  ;GPIO port C aktif 
+                                                            olmasi(clock sinyal
+                                                            i verilmesi) için 4
+                                                            . bitini 1 setleyec
+                                                            ek maske
+    8 0000000E 6181            STR              R1,[R0,#0x18] ;R1 maskesini RCC
+                                                            _APB2ENR regine sto
+                                                            reladim.(yükledim) 
+                                                            Portc aktif oldu.
+    9 00000010         
+   10 00000010         
+   11 00000010 F241 0000 
+              F2C4 0001        MOV32            R0,#0x40011000 ;GPIO port c adr
+                                                            esi.
+   12 00000018 6841            LDR              R1, [R0,#0x04] ;GPIOx_CRH offse
+                                                            t adresi 
+   13 0000001A F441 1100       ORR              R1,#(1<<21) ;MODE13 için 01 mas
+                                                            kesi (general outpu
+                                                            t mode)
+   14 0000001E F421 0180       AND              R1,#~(1<<22) ;MODE13 için 01 ma
+                                                            skesi (general outp
+                                                            ut mode)
+   15 00000022 6041            STR              R1,[R0,#0x04] ;R1 maskesini GPI
+                                                            Ox_CRH offset adres
+                                                            ine yüklüyoruz ve p
+                                                            ort13 output ayarla
+                                                            niyor.
+   16 00000024         ;C portlarinin clock sinyalini açtigimiz için portC 13. 
+                       pini output ayarlandi.
+   17 00000024         
+   18 00000024         
+   19 00000024         
+   20 00000024         loop
+   21 00000024 68C1            LDR              R1,[R0,#0x0C] ;GPIOx_ODR offset
+                                                             adresi (çikis dege
+                                                            rini high veya low 
+                                                            ayarlamak için kull
+                                                            anilir.)
+   22 00000026 F441 5100       ORR              R1,#(1<<13) ;13. pini high setl
+                                                            eyecek maske (portc
+                                                            13 led ters baglant
+                                                            ili o yüzden highda
+                                                             sönüyor.) 
+   23 0000002A 60C1            STR              R1,[R0,#0x0C] ;R1 maskesini GPI
+                                                            Ox_ODR offset adres
+                                                            ine yüklüyoruz ve p
+                                                            ortc13 pin için ODR
+                                                            'in 13. biti 1 setl
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                                                            endi (led off)
+   24 0000002C         
+   25 0000002C         
+   26 0000002C F04F 0300       MOV              R3,#0x0     ;i  
+   27 00000030 F04F 0400       MOV              R4,#0x0     ;sum
+   28 00000034 F44F 1514       MOV              R5,#0x250000 ;limit yaklasik 1 
+                                                            sn için
+   29 00000038         
+   30 00000038         FORLOOP                              ;for(i=0; i<25000; 
+                                                            i++){if(i==limit){r
+                                                            eturn} sum+=1; i+=s
+                                                            um;}
+   31 00000038 42AB            CMP              R3,R5       ;r3 ve r5 degerleri
+                                                             esit olana kadar a
+                                                            rttirma islemi yapi
+                                                            yorum eger cmp'dan 
+                                                            esitlik çikarsa BEQ
+                                                             ile endlopa dallan
+                                                            iyorum.
+   32 0000003A D003            BEQ              endloop     ;eger R3 == R5 ise 
+                                                            endloop'a git(dalla
+                                                            nma)
+   33 0000003C F104 0401       ADD              R4,R4,#1    ;sum +=1
+   34 00000040 4423            ADD              R3,R3,R4    ;i +=sum
+   35 00000042 E7F9            B                FORLOOP     ;foorlopa git
+   36 00000044         endloop
+   37 00000044         
+   38 00000044 68C1            LDR              R1,[R0,#0x0C]
+   39 00000046 F421 5100       AND              R1,#~(1<<13)
+   40 0000004A 60C1            STR              R1,[R0,#0x0C] ;LED ON
+   41 0000004C         
+   42 0000004C         ;ikinci delay için regleri sifirliyorum ayni islemler te
+                       krar yapiliyor.
+   43 0000004C F04F 0300       MOV              R3,#0x0     ;i
+   44 00000050 F04F 0400       MOV              R4,#0x0     ;sum
+   45 00000054 F44F 1514       MOV              R5,#0x250000
+   46 00000058         FORLOOP2
+   47 00000058 42AB            CMP              R3,R5
+   48 0000005A D003            BEQ              endloop2
+   49 0000005C F104 0401       ADD              R4,R4,#1
+   50 00000060 4423            ADD              R3,R3,R4
+   51 00000062 E7F9            B                FORLOOP2
+   52 00000064         endloop2
+   53 00000064         
+   54 00000064 E7DE            B                loop
+   55 00000066                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\objects\main_asm_code.d -o.\objects\main_asm_code.o -I.\RTE\Devi
+ce\STM32F103C8 -I.\RTE\_Target_1 -IC:\Users\a\AppData\Local\Arm\Packs\ARM\CMSIS
+\5.6.0\CMSIS\Core\Include -IC:\Users\a\AppData\Local\Arm\Packs\Keil\STM32F1xx_D
+FP\2.3.0\Device\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VERS
+ION SETA 529" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --li
+st=.\listings\main_asm_code.lst main_asm_code.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FORLOOP 00000038
+
+Symbol: FORLOOP
+   Definitions
+      At line 30 in file main_asm_code.s
+   Uses
+      At line 35 in file main_asm_code.s
+Comment: FORLOOP used once
+FORLOOP2 00000058
+
+Symbol: FORLOOP2
+   Definitions
+      At line 46 in file main_asm_code.s
+   Uses
+      At line 51 in file main_asm_code.s
+Comment: FORLOOP2 used once
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 3 in file main_asm_code.s
+   Uses
+      At line 2 in file main_asm_code.s
+Comment: __main used once
+deneme 00000000
+
+Symbol: deneme
+   Definitions
+      At line 1 in file main_asm_code.s
+   Uses
+      None
+Comment: deneme unused
+endloop 00000044
+
+Symbol: endloop
+   Definitions
+      At line 36 in file main_asm_code.s
+   Uses
+      At line 32 in file main_asm_code.s
+Comment: endloop used once
+endloop2 00000064
+
+Symbol: endloop2
+   Definitions
+      At line 52 in file main_asm_code.s
+   Uses
+      At line 48 in file main_asm_code.s
+Comment: endloop2 used once
+loop 00000024
+
+Symbol: loop
+   Definitions
+      At line 20 in file main_asm_code.s
+   Uses
+      At line 54 in file main_asm_code.s
+Comment: loop used once
+7 symbols
+341 symbols in table
